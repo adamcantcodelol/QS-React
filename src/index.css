@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@900&display=swap');
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'M PLUS 1p', sans-serif;
+  font-weight: 900;
   background-color: #f9f9f9;
+  color: #0b3871;
   margin: 0;
   padding: 2rem;
-  color: #333;
 }
 
 .app {

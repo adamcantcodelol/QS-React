@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import './index.css';
+import React, { useEffect, useState } from "react";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import "./index.css";
+import "./stuff.css";
 
 function QueueSystem() {
   const [queue, setQueue] = useState([]);
-  const [name, setName] = useState('');
-  const [fingerprint, setFingerprint] = useState('');
+  const [name, setName] = useState("");
+  const [fingerprint, setFingerprint] = useState("");
   const [showModal, setShowModal] = useState(true);
-  const [devName, setDevName] = useState('');
+  const [devName, setDevName] = useState("");
 
   function handleDevNameChange(e) {
     setDevName(e.target.value);
   }
   function enqueueByName() {
     const trimmed = devName.trim();
-    if(!trimmed) return;
-    if (queue.find(p => p.name === trimmed)) return;
-    setQueue(prev => [...prev, { name: trimmed, time: new Date() }]);
-    setDevName('');
+    if (!trimmed) return;
+    if (queue.find((p) => p.name === trimmed)) return;
+    setQueue((prev) => [...prev, { name: trimmed, time: new Date() }]);
+    setDevName("");
   }
 
   function dequeueByName() {
     const trimmed = devName.trim();
     if (!trimmed) return;
-    setQueue(prev => prev.filter(p => p.name !== trimmed));
-    setDevName('');
+    setQueue((prev) => prev.filter((p) => p.name !== trimmed));
+    setDevName("");
   }
 
   // Fingerprint + Load name
@@ -49,19 +50,19 @@ function QueueSystem() {
 
   function handleRegisterName() {
     const trimmed = name.trim();
-    if (trimmed === '') return;
+    if (trimmed === "") return;
     localStorage.setItem(`name_${fingerprint}`, trimmed);
     setShowModal(false);
   }
 
   function enqueueUser() {
     if (!name) return;
-    if (queue.find(p => p.name === name)) return;
-    setQueue(prev => [...prev, { name, time: new Date() }]);
+    if (queue.find((p) => p.name === name)) return;
+    setQueue((prev) => [...prev, { name, time: new Date() }]);
   }
 
   function dequeueUser() {
-    setQueue(prev => prev.filter(p => p.name !== name));
+    setQueue((prev) => prev.filter((p) => p.name !== name));
   }
   // Shift the first row (2 players) to the end, pushing everything up
   function nextRow() {
@@ -80,8 +81,13 @@ function QueueSystem() {
   }
 
   function alertCurrentPlayers() {
-    const current = queue.slice(0, 2).map(p => p.name).join(' & ');
-    window.alert(`⏰ ${current || 'No players'} — you have 30 seconds to confirm!`);
+    const current = queue
+      .slice(0, 2)
+      .map((p) => p.name)
+      .join(" & ");
+    window.alert(
+      `⏰ ${current || "No players"} — you have 30 seconds to confirm!`
+    );
   }
 
   // Rendering
@@ -90,8 +96,8 @@ function QueueSystem() {
     for (let i = 0; i < queue.length; i += 2) {
       rows.push(
         <tr key={i}>
-          <td>{queue[i]?.name || ''}</td>
-          <td>{queue[i + 1]?.name || ''}</td>
+          <td>{queue[i]?.name || ""}</td>
+          <td>{queue[i + 1]?.name || ""}</td>
         </tr>
       );
     }
@@ -103,41 +109,49 @@ function QueueSystem() {
   }
 
   return (
-    <div className="queue-container">
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Welcome!</h2>
-            <p>Please enter your name to register this device:</p>
-            <input
-              type="text"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="Your name"
-            />
-            <button onClick={handleRegisterName}>Register</button>
-          </div>
+    <>
+      <div className="bg">
+        <div className="bg-wrap">
+          <div className="bg-first"></div>
         </div>
-      )}
+      </div>
 
-      {!showModal && (
-        <>
-          <h2>Welcome back, {name}!</h2>
+      <div className="title">Queue System</div>
 
-          <div className="table-responsive">
-            <table className="queue-table">
-              <thead>
-                <tr>
-                  <th>Player 1</th>
-                  <th>Player 2</th>
-                </tr>
-              </thead>
-              <tbody>{renderRows()}</tbody>
-            </table>
+      <div className="queue-container">
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Welcome!</h2>
+              <p>Please enter your name to register this device:</p>
+              <input
+                type="text"
+                value={name}
+                onChange={handleNameChange}
+                placeholder="Your name"
+              />
+              <button onClick={handleRegisterName}>Register</button>
+            </div>
           </div>
+        )}
 
-          <div className="button-group">
-            <button onClick={enqueueUser}>Enqueue</button>
+        {!showModal && (
+          <>
+            <h2>Welcome back, {name}!</h2>
+            <div className="table-responsive">
+              <table className="queue-table">
+                <thead>
+                  <tr>
+                    <th>Player 1</th>
+                    <th>Player 2</th>
+                  </tr>
+                </thead>
+                <tbody>{renderRows()}</tbody>
+              </table>
+            </div>
+
+            <div className="button-group">
+              <button onClick={enqueueUser}>Enqueue</button>
               <div className="dev-panel">
                 <h4>Developer Tools</h4>
                 <input
@@ -151,15 +165,18 @@ function QueueSystem() {
                   <button onClick={dequeueByName}>Dequeue by Name</button>
                 </div>
               </div>
-            <button onClick={dequeueUser}>Dequeue</button>
-            <button onClick={nextRow}>Next</button>
-            <button onClick={prevRow}>Prev</button>
-            <button onClick={alertCurrentPlayers}>Alert!</button>
-            <button onClick={() => alert('Pair functionality coming soon!')}>Pair</button>
-          </div>
-        </>
-      )}
-    </div>
+              <button onClick={dequeueUser}>Dequeue</button>
+              <button onClick={nextRow}>Next</button>
+              <button onClick={prevRow}>Prev</button>
+              <button onClick={alertCurrentPlayers}>Alert!</button>
+              <button onClick={() => alert("Pair functionality coming soon!")}>
+                Pair
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
