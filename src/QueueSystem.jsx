@@ -116,9 +116,8 @@ function QueueSystem() {
         </div>
       </div>
 
-      <div className="title">Queue System</div>
-
       <div className="queue-container">
+        <div className="container">Queue System</div>
         {showModal && (
           <div className="modal">
             <div className="modal-content">
@@ -137,18 +136,16 @@ function QueueSystem() {
 
         {!showModal && (
           <>
-            <h2>Welcome back, {name}!</h2>
-            <div className="table-responsive">
-              <table className="queue-table">
-                <thead>
-                  <tr>
-                    <th>Player 1</th>
-                    <th>Player 2</th>
-                  </tr>
-                </thead>
-                <tbody>{renderRows()}</tbody>
-              </table>
-            </div>
+            <div className="container">Welcome back, {name}!</div>
+            <table className="queue-table">
+              <thead>
+                <tr>
+                  <th>Player 1</th>
+                  <th>Player 2</th>
+                </tr>
+              </thead>
+              <tbody>{renderRows()}</tbody>
+            </table>
 
             <div className="button-group">
               <button onClick={enqueueUser}>Enqueue</button>

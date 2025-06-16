@@ -1,62 +1,103 @@
 /* Ill clean all this stuff later */
 
-.bg {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
 }
 
-.bg-wrap {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 1000;
+  color: #ff477e;
+  text-align: center;
+  background: linear-gradient(-45deg,
+      #d6eaff,
+      #fbe0e6,
+      #e3f2fd,
+      #ffdce0,
+      #ccf0ff,
+      #ffe6ec,
+      #e8f5fe);
+  background-size: 400% 400%;
+  animation: gradientShift 120s ease infinite;
 }
 
-.bg-first {
-  background-size: 6.5vw auto;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(148, 182, 255, 1) 75%, rgba(77, 136, 255, 1) 100%);
-  width: 100%;
-  height: 100%;
-  animation: gradientMove 10s infinite linear;
-}
-
-.bg-first::after {
-  content: "";
-  display: block;
-  background: transparent url(../img/bg/bg_pattern.png) repeat;
-  /* change this to make the bg smaller or larger */
-  background-size: clamp(30px, 5vh, 60px) clamp(30px, 5vh, 60px);
-  background-position: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  mix-blend-mode: overlay;
-  /* change this to make it slower/faster */
-  animation: patternMove 40s infinite linear;
-}
-
-@keyframes patternMove {
-
-  /* change these to change the direction */
+/* gradient stuff */
+@keyframes gradientShift {
   0% {
-    background-position: 0% 0%;
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
   }
 
   100% {
-    background-position: 100% 100%;
+    background-position: 0% 50%;
   }
 }
 
-.title{
+/* default container stuff */
+
+.container {
   background-color: white;
-  margin: 5rem;
-  border: 2rem;
+  margin: 1rem 2rem 0rem 2rem;
+  padding: 0.2rem;
+  border-radius: 2rem;
+  width: auto;
+  border: 0.125rem solid #ff477e;
+}
+
+/* main container stuff */
+
+.queue-container {
+  min-width: none;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* button nonsense */
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.button-group button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+/* table nonsense */
+
+.queue-table {
+  border-collapse: separate;
+  border-spacing: 0;
   border-radius: 1rem;
+  margin: 1rem 2rem 0rem 2rem;
+  width: auto;
+  background-color: white;
+  padding: 0.2rem;
+  box-shadow: 5px 5px 0 rgba(34, 34, 34, 0.4);
+}
+
+.queue-table th {
+  background-color: #ffffff;
+  color: #a8370a;
+  padding: 0.2rem;
 }
